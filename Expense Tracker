@@ -1,0 +1,43 @@
+import csv
+import os
+
+filename = "expenses.csv"
+
+if not os.path.exists(filename):
+    with open(filename, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["Item", "Amount"])
+
+print("=== Simple Expense Tracker ===")
+
+while True:
+    choice = input("\nChoose an option - Add (a), View (v), Quit (q): ").lower()
+    
+    if choice == 'a':
+        item = input("Enter item name: ").strip()
+        try:
+            amount = float(input("Enter amount (₹): "))
+            with open(filename, 'a', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow([item, amount])
+            print("Expense added successfully!")
+        except ValueError:
+            print("Invalid amount. Please enter a number.")
+    
+    elif choice == 'v':
+        total = 0.0
+        print("\n--- Your Expenses ---")
+        with open(filename, 'r') as f:
+            reader = csv.reader(f)
+            next(reader)  # Skip header
+            for row in reader:
+                print(f"{row[0]} - ₹{row[1]}")
+                total += float(row[1])
+        print(f"\nTotal Expenses: ₹{total:.2f}")
+    
+    elif choice == 'q':
+        print("Exiting Expense Tracker. Goodbye!")
+        break
+    
+    else:
+        print("Invalid choice. Please enter 'a', 'v', or 'q'.")
