@@ -1,0 +1,37 @@
+import time
+
+# Predefined sentence to type
+text = "Python is a powerful programming language."
+
+# Display instructions and the sentence
+print("=== Typing Speed and Accuracy Tester ===")
+print("\nType the following sentence:\n")
+print(text)
+
+# Wait for the user to be ready
+input("\nPress Enter to start typing...")
+
+# Start the timer
+start_time = time.time()
+
+# Get user input
+typed_text = input("\nYour Input: ")
+
+# End the timer
+end_time = time.time()
+
+# Calculate time taken
+time_taken = end_time - start_time
+
+# Calculate typing speed (characters per minute)
+speed = (len(typed_text) / time_taken) * 60
+
+# Calculate accuracy
+correct_chars = sum(1 for a, b in zip(text, typed_text) if a == b)
+accuracy = (correct_chars / len(text)) * 100
+
+# Display results
+print("\n--- Results ---")
+print(f"Typing Speed : {speed:.2f} chars/min")
+print(f"Accuracy     : {accuracy:.2f}%")
+print(f"Time Taken   : {time_taken:.2f} seconds")
